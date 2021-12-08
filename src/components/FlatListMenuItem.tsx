@@ -25,7 +25,7 @@ export const FlatListMenuItem = ({ menuItem }: Props) => {
             >
                 <Icon
                     name={icon}
-                    color='gray'
+                    color='#782eac'
                     size={23}
                 />
                 <Text
@@ -36,7 +36,7 @@ export const FlatListMenuItem = ({ menuItem }: Props) => {
 
                 <Icon
                     name='chevron-forward-outline'
-                    color='gray'
+                    color='#782eac'
                     size={23}
                 />
             </View>
