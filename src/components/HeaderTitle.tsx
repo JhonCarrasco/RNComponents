@@ -15,7 +15,7 @@ export const HeaderTitle = ({ title }: Props) => {
         <View style={{ marginTop: top + 20, marginBottom: 20 }}>
             <Text
                 style={
-                    [_styles.title, { color: '#782eac' }]
+                    [_styles.title, { color: '#000000' }]
                 }
             >{title}</Text>
         </View>

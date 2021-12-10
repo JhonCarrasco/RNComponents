@@ -41,4 +41,9 @@ export const menuItems: MenuItem[] = [
         icon: 'browsers-outline',
         component: 'ModalScreen',
     },
+    {
+        name: 'InfiniteScroll Screen',
+        icon: 'infinite-outline',
+        component: 'InfiniteScrollScreen',
+    },
 ]
