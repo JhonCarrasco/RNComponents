@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, View, RefreshControl } from 'react-native'
+import { ScrollView, View, RefreshControl, Text } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { HeaderTitle } from '../components/HeaderTitle'
 import { _styles } from '../theme/appTheme'
@@ -46,7 +46,9 @@ export const PullToRefreshScreen = () => {
                 <HeaderTitle title='Pull to refresh' />
 
                 {
-                    data && <HeaderTitle title={data} />
+                    data 
+                    ? <HeaderTitle title={data} />
+                    : <Text>***Slide down***</Text>
                 }
 
             </View>
