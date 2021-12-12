@@ -10,3 +10,8 @@ export const _styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 })
+
+export const COLORS = {
+    primary: '#5856D6',
+}
+
