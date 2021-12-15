@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
-import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext, useState } from 'react'
+import { ActivityIndicator, Button, FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { FadeInImage } from '../components/FadeInImage'
 import { HeaderTitle } from '../components/HeaderTitle'
+import { ThemeContext } from '../contexts/themeContext/ThemeContext'
 import { _styles } from '../theme/appTheme'
 
 export const InfiniteScrollScreen = () => {
+
+    const navigation = useNavigation()
+    const { theme: { colors } } = useContext(ThemeContext)
 
     const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5])
 
@@ -47,6 +52,12 @@ export const InfiniteScrollScreen = () => {
         <View style={{
             flex: 1,
         }}>
+            <View style={{ marginTop: 30 }}>
+                <Button
+                    title='Go Back'
+                    onPress={() => navigation.navigate('HomeScreen' as any)}
+                />
+            </View>
             <FlatList
                 data={numbers}
                 keyExtractor={(item) => item.toString()}
@@ -66,7 +77,7 @@ export const InfiniteScrollScreen = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <ActivityIndicator color='#5856D6' size={30} />
+                        <ActivityIndicator color={ colors.text } size={30} />
                     </View>
                 )}
             />
