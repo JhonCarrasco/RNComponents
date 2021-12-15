@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { ScrollView, View, RefreshControl, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext, useState } from 'react'
+import { ScrollView, View, RefreshControl, Text, Button } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { HeaderTitle } from '../components/HeaderTitle'
+import { ThemeContext } from '../contexts/themeContext/ThemeContext'
 import { _styles } from '../theme/appTheme'
 
 export const PullToRefreshScreen = () => {
 
     const top = useSafeAreaInsets().top
+
+    const navigation = useNavigation()
+    const { theme: { colors, dividerColor, dark } } = useContext(ThemeContext)
 
     const [refreshing, setRefresing] = useState(false)
     const [data, setData] = useState<string>()
@@ -33,12 +38,12 @@ export const PullToRefreshScreen = () => {
                     refreshing={refreshing}
                     onRefresh={onRefresh}
                     // progressViewOffset={100} // android subir o bajar el Spin
-                    progressBackgroundColor='#5856D6' // android
-                    colors={['red', 'yellow', 'green']} // android
+                    progressBackgroundColor={ dividerColor } // android
+                    colors={ [colors.text] }//{['red', 'yellow', 'green']} // android
                     // style={{ backgroundColor: 'yellow'}} // IOS
-                    tintColor='red' // IOS
+                    tintColor={ colors.text } // IOS
                     title='Cargando...' // IOS
-                    titleColor='green' // IOS
+                    titleColor={ dark ? 'white': 'black' } // IOS
                 />
             }
         >
@@ -52,6 +57,14 @@ export const PullToRefreshScreen = () => {
                 }
 
             </View>
+
+            <View style={{ marginTop: 20 }}>
+                <Button
+                    title='Go Back'
+                    onPress={() => navigation.navigate('HomeScreen' as any)}
+                />
+            </View>
+
         </ScrollView>
     )
 }

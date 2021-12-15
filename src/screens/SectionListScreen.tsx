@@ -1,7 +1,9 @@
-import React from 'react'
-import { SectionList, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext } from 'react'
+import { Button, SectionList, Text, View } from 'react-native'
 import { HeaderTitle } from '../components/HeaderTitle'
 import { ItemSeparator } from '../components/ItemSeparator'
+import { ThemeContext } from '../contexts/themeContext/ThemeContext'
 import { _styles } from '../theme/appTheme'
 
 
@@ -26,17 +28,27 @@ const casas: Casas[] = [
 ]
 
 export const SectionListScreen = () => {
+
+    const navigation = useNavigation()
+    const { theme: { colors } } = useContext(ThemeContext)
+
     return (
         <View style={[_styles.globalMargin, { flex: 1 }]}>
+            <View style={{ marginTop: 30 }}>
+                <Button
+                    title='Go Back'
+                    onPress={() => navigation.navigate('HomeScreen' as any)}
+                />
+            </View>
             <SectionList 
                 sections={casas}
                 ListHeaderComponent={() => <HeaderTitle title='Section List' />}
                 ListFooterComponent={() => <HeaderTitle title={'Total de casas ' + casas.length} />}
-                renderItem={({item}) => <Text>{ item }</Text>}
+                renderItem={({item}) => <Text style={{ color: colors.text }}>{ item }</Text>}
                 keyExtractor={(item, index) => item + index}
                 stickySectionHeadersEnabled
                 renderSectionHeader={({section: { casa }}) => (
-                    <View style={{backgroundColor: 'white'}}>
+                    <View style={{backgroundColor: colors.background}}>
                         <HeaderTitle title={casa} />
                     </View>
                 )}

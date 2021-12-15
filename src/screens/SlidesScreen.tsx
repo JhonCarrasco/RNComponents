@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Animated, Dimensions, Image, ImageSourcePropType, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { HeaderTitle } from '../components/HeaderTitle'
+import { ThemeContext } from '../contexts/themeContext/ThemeContext'
 import { useAnimation } from '../hooks/useAnimation'
 import { COLORS } from '../theme/appTheme'
 
@@ -36,17 +37,19 @@ const items: Slide[] = [
 
 export const SlidesScreen = () => {
 
+    const navigation = useNavigation()
+    const { theme: { colors } } = useContext(ThemeContext)
+
     const [activeIndex, setActiveIndex] = useState(0)
     const [isLast, setIsLast] = useState(false)
     const { opacity, fadeIn } = useAnimation()
-    const navigation = useNavigation()
 
     const renderItem = ({ title, desc, img }: Slide) => {
         return (
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: 'white',
+                    backgroundColor: colors.background,
                     borderRadius: 5,
                     padding: 40,
                     justifyContent: 'center',
@@ -60,8 +63,8 @@ export const SlidesScreen = () => {
                         resizeMode: 'center',
                     }}
                 />
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>{desc}</Text>
+                <Text style={[styles.title, { color: colors.primary }]}>{title}</Text>
+                <Text style={[styles.subtitle, { color: colors.text }]}>{desc}</Text>
             </View>
         )
     }
@@ -100,7 +103,7 @@ export const SlidesScreen = () => {
                         width: 10,
                         height: 10,
                         borderRadius: 10,
-                        backgroundColor: COLORS.primary,
+                        backgroundColor: colors.primary,
                     }}
                 />
 
@@ -114,7 +117,7 @@ export const SlidesScreen = () => {
                             <TouchableOpacity
                                 style={{
                                     flexDirection: 'row',
-                                    backgroundColor: COLORS.primary,
+                                    backgroundColor: colors.primary,
                                     width: 140,
                                     height: 50,
                                     borderRadius: 10,
@@ -149,7 +152,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: COLORS.primary,
     },
     subtitle: {
         fontSize: 16,

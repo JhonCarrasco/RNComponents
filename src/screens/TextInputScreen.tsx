@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
-import { StyleSheet, TextInput, View, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard, Text } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useContext, useState } from 'react'
+import { StyleSheet, TextInput, View, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard, Text, Button } from 'react-native'
 import { CustomSwitch } from '../components/CustomSwitch'
 import { HeaderTitle } from '../components/HeaderTitle'
+import { ThemeContext } from '../contexts/themeContext/ThemeContext'
 import { useForm } from '../hooks/useForm'
 import { _styles } from '../theme/appTheme'
 
 
 export const TextInputScreen = () => {
+
+    const navigation = useNavigation()
+
+    const { theme: { colors, dividerColor } } = useContext(ThemeContext)
 
     const { form, onChange, isSubscribed } = useForm({
         name: '',
@@ -25,15 +31,29 @@ export const TextInputScreen = () => {
                     <View style={[_styles.globalMargin]}>
                         <HeaderTitle title='TextInputs' />
                         <TextInput
-                            style={styles.textInput}
+                            style={[
+                                styles.textInput,
+                                {
+                                    borderColor: colors.text,
+                                    color: colors.text,
+                                }
+                            ]}
                             placeholder='Ingrese su nombre'
+                            placeholderTextColor={dividerColor}
                             autoCorrect={false}
                             autoCapitalize='words'
                             onChangeText={(value) => onChange(value, 'name')}
                         />
                         <TextInput
-                            style={styles.textInput}
+                            style={[
+                                styles.textInput,
+                                {
+                                    borderColor: colors.text,
+                                    color: colors.text,
+                                }
+                            ]}
                             placeholder='Ingrese su email'
+                            placeholderTextColor={dividerColor}
                             autoCorrect={false}
                             autoCapitalize='none'
                             onChangeText={(value) => onChange(value, 'email')}
@@ -50,12 +70,25 @@ export const TextInputScreen = () => {
                         <HeaderTitle title={JSON.stringify(form, null, 3)} />
 
                         <TextInput
-                            style={styles.textInput}
+                            style={[
+                                styles.textInput,
+                                {
+                                    borderColor: colors.text,
+                                    color: colors.text,
+                                }
+                            ]}
                             placeholder='Ingrese su teléfono'
+                            placeholderTextColor={dividerColor}
                             onChangeText={(value) => onChange(value, 'phone')}
                             keyboardType='phone-pad'
                         />
 
+                        <View style={{ marginTop: 20 }}>
+                            <Button
+                                title='Go Back'
+                                onPress={() => navigation.navigate('HomeScreen' as any)}
+                            />
+                        </View>
 
                     </View>
                 </TouchableWithoutFeedback>
@@ -68,7 +101,7 @@ export const TextInputScreen = () => {
 const styles = StyleSheet.create({
     textInput: {
         borderWidth: 1,
-        borderColor: 'rgba(0,0,0,0.3)',
+
         height: 50,
         paddingHorizontal: 10,
         borderRadius: 10,
